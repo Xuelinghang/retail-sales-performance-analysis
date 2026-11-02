@@ -1,0 +1,46 @@
+{
+  "baseline_month": "2026-10",
+  "comparison_month": "2026-11",
+  "sidebar_start": "2023-01-03",
+  "sidebar_end_inclusive": "2026-12-30",
+  "regions": null,
+  "categories": null,
+  "amount_unit": "Source amount units",
+  "data_completeness_confirmed": false,
+  "undated_rows_assigned_to_periods": false,
+  "empty_period_rule": "No matching recorded lines: additive totals are zero when the source field exists; margin remains unavailable.",
+  "missing_group_rule": "Only an absent group is zero-filled; missing amounts in existing groups remain unavailable.",
+  "missing_dimension_fields": [],
+  "source_sha256": "5045ed4fec49cae2cc0dfc5ab0d204ba09efa767fe00c996822499e8cc42fbbd",
+  "periods": [
+    {
+      "period": "baseline",
+      "month": "2026-10",
+      "effective_start": "2026-10-01",
+      "effective_end_inclusive": "2026-10-31",
+      "observed_start": "2026-10-01",
+      "observed_end": "2026-10-31",
+      "order_line_count": 309,
+      "full_calendar_window": true,
+      "data_completeness": "unverified: no ingestion cutoff or expected-day calendar"
+    },
+    {
+      "period": "comparison",
+      "month": "2026-11",
+      "effective_start": "2026-11-01",
+      "effective_end_inclusive": "2026-11-30",
+      "observed_start": "2026-11-01",
+      "observed_end": "2026-11-30",
+      "order_line_count": 460,
+      "full_calendar_window": true,
+      "data_completeness": "unverified: no ingestion cutoff or expected-day calendar"
+    }
+  ],
+  "business_summary": [
+    "Sales changed from 83,474.78 to 118,454.51, a change of +34,979.72 source units (+41.90%).",
+    "Profit changed from 10,670.53 to 9,692.10, a change of -978.43 source units (-9.17%).",
+    "Profit Margin moved from 12.78% to 8.18% (-4.60 percentage points).",
+    "Region - sales: largest positive contribution: South (+16,580.47). profit: largest positive contribution: East (+1,752.51); largest negative contribution: Central (-2,083.59).",
+    "Sub-Category - sales: largest positive contribution: Chairs (+9,670.40); largest negative contribution: Fasteners (-5,134.10). profit: largest positive contribution: Copiers (+1,506.99); largest negative contribution: Machines (-6,167.33)."
+  ]
+}

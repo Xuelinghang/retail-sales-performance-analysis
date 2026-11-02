@@ -1,0 +1,43 @@
+sheet,field,check,count,row_denominator,rate,severity_when_present,interpretation
+Orders,Row ID,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Row ID,invalid_or_nonfinite_numeric,0,10194,0.0,REVIEW,Retained in source and line count; excluded only from this measure's sum. Incomplete inputs make margin unavailable.
+Orders,Order ID,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Order Date,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Order Date,invalid_date,0,10194,0.0,REVIEW,Retained. Invalid Order Date values enter the unassigned monthly group.
+Orders,Order Date,after_reference_date,938,10194,0.09201491073180303,REVIEW,Retained sample dates; this reference date is not a reporting filter.
+Orders,Ship Date,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Ship Date,invalid_date,0,10194,0.0,REVIEW,Retained. Invalid Order Date values enter the unassigned monthly group.
+Orders,Ship Date,after_reference_date,969,10194,0.09505591524426132,REVIEW,Retained sample dates; this reference date is not a reporting filter.
+Orders,Ship Mode,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Customer ID,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Customer Name,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Segment,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Country/Region,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,City,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,State/Province,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Postal Code,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Region,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Product ID,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Category,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Sub-Category,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Product Name,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Sales,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Sales,invalid_or_nonfinite_numeric,0,10194,0.0,REVIEW,Retained in source and line count; excluded only from this measure's sum. Incomplete inputs make margin unavailable.
+Orders,Sales,iqr_outlier,1183,10194,0.11604865607219933,REVIEW,Review flag only; retained in totals. 1.5-IQR bounds: -271.2 to 497.92.
+Orders,Quantity,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Quantity,invalid_or_nonfinite_numeric,0,10194,0.0,REVIEW,Retained in source and line count; excluded only from this measure's sum. Incomplete inputs make margin unavailable.
+Orders,Discount,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Discount,invalid_or_nonfinite_numeric,0,10194,0.0,REVIEW,Retained in source and line count; excluded only from this measure's sum. Incomplete inputs make margin unavailable.
+Orders,Profit,missing_or_blank,0,10194,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Orders,Profit,invalid_or_nonfinite_numeric,0,10194,0.0,REVIEW,Retained in source and line count; excluded only from this measure's sum. Incomplete inputs make margin unavailable.
+Orders,Profit,iqr_outlier,1913,10194,0.18765940749460466,REVIEW,Review flag only; retained in totals. 1.5-IQR bounds: -39.544887 to 70.603612.
+Orders,Sales,negative_value,0,10194,0.0,REVIEW,Retained. Negative profit can indicate a loss; investigate negative sales before assuming an error.
+Orders,Sales,zero_value,0,10194,0.0,REVIEW,Retained. Aggregate zero sales produces an undefined profit margin.
+Orders,Profit,negative_value,1901,10194,0.18648224445752404,REVIEW,Retained. Negative profit can indicate a loss; investigate negative sales before assuming an error.
+Orders,Quantity,nonpositive_value,0,10194,0.0,REVIEW,Flag for review; no row deletion.
+Orders,Discount,outside_unit_interval,0,10194,0.0,REVIEW,Flag for review; no row deletion.
+Orders,Ship Date,ship_before_order,0,10194,0.0,REVIEW,Compare valid dates only; retain flagged rows.
+People,Regional Manager,missing_or_blank,0,4,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+People,Region,missing_or_blank,0,4,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Returns,Order ID,missing_or_blank,0,296,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.
+Returns,Returned,missing_or_blank,0,296,0.0,REVIEW,Retained. Missing measures are not imputed as zero; missing grouping values stay in an unassigned group.

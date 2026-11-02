@@ -1,0 +1,26 @@
+sheet,field,read_dtype,meaning,null_count,blank_string_count,missing_or_blank_rate,distinct_nonmissing_values,date_min,date_max,invalid_date_count,invalid_numeric_count
+Orders,Row ID,int64,Source line-item identifier,0,0,0.0,10194,,,,0.0
+Orders,Order ID,str,Order identifier; one order can contain multiple rows,0,0,0.0,5111,,,,
+Orders,Order Date,datetime64[us],Date the order was placed,0,0,0.0,1242,2023-01-03T00:00:00,2026-12-30T00:00:00,0.0,
+Orders,Ship Date,datetime64[us],"Shipment date, not delivery date",0,0,0.0,1338,2023-01-07T00:00:00,2027-01-05T00:00:00,0.0,
+Orders,Ship Mode,str,Shipping service class,0,0,0.0,4,,,,
+Orders,Customer ID,str,Customer identifier,0,0,0.0,804,,,,
+Orders,Customer Name,str,Customer name,0,0,0.0,800,,,,
+Orders,Segment,str,Customer segment,0,0,0.0,3,,,,
+Orders,Country/Region,str,Country or geographic jurisdiction,0,0,0.0,2,,,,
+Orders,City,str,City,0,0,0.0,542,,,,
+Orders,State/Province,str,State or province,0,0,0.0,59,,,,
+Orders,Postal Code,object,Postal identifier; not a numeric measure,0,0,0.0,654,,,,
+Orders,Region,str,Sales region; join key for People,0,0,0.0,4,,,,
+Orders,Product ID,str,Product identifier,0,0,0.0,1862,,,,
+Orders,Category,str,Top-level product category,0,0,0.0,3,,,,
+Orders,Sub-Category,str,Product subcategory,0,0,0.0,17,,,,
+Orders,Product Name,str,Product name,0,0,0.0,1849,,,,
+Orders,Sales,float64,Line sales amount; currency and tax treatment unconfirmed,0,0,0.0,6161,,,,0.0
+Orders,Quantity,int64,Number of product units on the line item,0,0,0.0,14,,,,0.0
+Orders,Discount,float64,Discount rate; 0.2 represents 20%,0,0,0.0,12,,,,0.0
+Orders,Profit,float64,Line profit amount; cost definition unconfirmed,0,0,0.0,7597,,,,0.0
+People,Regional Manager,str,Manager responsible for the sales region,0,0,0.0,4,,,,
+People,Region,str,Sales region; join key for People,0,0,0.0,4,,,,
+Returns,Order ID,str,Order identifier; one order can contain multiple rows,0,0,0.0,296,,,,
+Returns,Returned,str,Order-level return flag; observed value is Yes,0,0,0.0,1,,,,

@@ -1,0 +1,4 @@
+sheet,data_rows,columns,grain,date_fields,null_cells,blank_string_cells,exact_duplicate_extra_rows
+Orders,10194,21,One product sales line item within an order,Order Date | Ship Date,0,0,0
+People,4,2,One sales region and its regional manager,None,0,0,0
+Returns,296,2,One order-level return flag; not a returned product line,None,0,0,0

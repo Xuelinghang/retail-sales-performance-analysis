@@ -1,0 +1,16 @@
+dimension,check,expected,observed,difference,status,note
+Month,sales,2326534.3543000002,2326534.3543000002,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Month,profit,292296.8145999999,292296.8145999999,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Month,order_line_count,10194.0,10194.0,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Month,order_count_union,5111.0,5111.0,0.0,PASS,Distinct union across groups; do not sum group-level order counts.
+Month,order_count_sum_information,5111.0,5111.0,0.0,INFO,An order may appear in multiple groups; the sum need not equal the total.
+Region,sales,2326534.3543000002,2326534.3543000002,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Region,profit,292296.8145999999,292296.8145999999,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Region,order_line_count,10194.0,10194.0,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Region,order_count_union,5111.0,5111.0,0.0,PASS,Distinct union across groups; do not sum group-level order counts.
+Region,order_count_sum_information,5111.0,5111.0,0.0,INFO,An order may appear in multiple groups; the sum need not equal the total.
+Category,sales,2326534.3543000002,2326534.3543,-4.656612873077393e-10,PASS,Includes the unassigned group; amounts retain source precision.
+Category,profit,292296.8145999999,292296.8145999999,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Category,order_line_count,10194.0,10194.0,0.0,PASS,Includes the unassigned group; amounts retain source precision.
+Category,order_count_union,5111.0,5111.0,0.0,PASS,Distinct union across groups; do not sum group-level order counts.
+Category,order_count_sum_information,5111.0,7191.0,2080.0,INFO,An order may appear in multiple groups; the sum need not equal the total.

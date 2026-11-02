@@ -1,0 +1,3 @@
+period,month,effective_start,effective_end_inclusive,observed_start,observed_end,order_line_count,full_calendar_window,data_completeness
+baseline,2026-10,2026-10-01,2026-10-31,2026-10-01,2026-10-31,309,True,unverified: no ingestion cutoff or expected-day calendar
+comparison,2026-11,2026-11-01,2026-11-30,2026-11-01,2026-11-30,460,True,unverified: no ingestion cutoff or expected-day calendar

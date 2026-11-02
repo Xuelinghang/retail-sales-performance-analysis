@@ -1,0 +1,13 @@
+dimension,measure,check,expected,observed,difference,status
+Region,sales,baseline,83474.7832,83474.7832,0.0,PASS
+Region,sales,comparison,118454.505,118454.505,0.0,PASS
+Region,sales,change,34979.7218,34979.7218,0.0,PASS
+Region,profit,baseline,10670.531199999998,10670.531199999998,0.0,PASS
+Region,profit,comparison,9692.103699999998,9692.1037,1.8189894035458565e-12,PASS
+Region,profit,change,-978.4274999999998,-978.4274999999984,1.3642420526593924e-12,PASS
+Sub-Category,sales,baseline,83474.7832,83474.7832,0.0,PASS
+Sub-Category,sales,comparison,118454.505,118454.505,0.0,PASS
+Sub-Category,sales,change,34979.7218,34979.7218,0.0,PASS
+Sub-Category,profit,baseline,10670.531199999998,10670.531199999998,0.0,PASS
+Sub-Category,profit,comparison,9692.103699999998,9692.103699999998,0.0,PASS
+Sub-Category,profit,change,-978.4274999999998,-978.4274999999994,3.410605131648481e-13,PASS

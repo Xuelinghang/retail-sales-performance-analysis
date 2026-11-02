@@ -1,0 +1,4 @@
+metric,baseline_value,comparison_value,baseline_status,comparison_status,absolute_change,change_rate,change_rate_status,margin_change_pp
+sales,83474.7832,118454.505,complete,complete,34979.7218,0.419045374651539,available,
+profit,10670.531199999998,9692.103699999998,complete,complete,-978.4274999999998,-0.09169435725936494,available,
+profit_margin,0.1278293969860828,0.08182131781311312,available,available,,,not_applicable,-4.600807917296969

@@ -1,0 +1,5 @@
+Region,sales,profit,profit_margin,order_count,order_line_count,sales_status,profit_status,profit_margin_status,sales_unavailable_line_count,profit_unavailable_line_count,order_id_missing_line_count
+Central,503170.6728,39865.30699999998,0.07922820059873724,1179,2335,complete,complete,available,0,0,0
+East,691828.1680000001,94883.26029999998,0.1371485936663972,1475,2986,complete,complete,available,0,0,0
+South,391721.905,46749.43029999999,0.11934341609004477,822,1620,complete,complete,available,0,0,0
+West,739813.6085,110798.81699999998,0.14976585416514407,1635,3253,complete,complete,available,0,0,0

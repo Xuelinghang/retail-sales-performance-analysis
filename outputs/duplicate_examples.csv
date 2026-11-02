@@ -1,0 +1,25 @@
+sheet,duplicate_type,source_excel_row,identifiers,scope
+Orders,order_id,3,"{""Row ID"": ""2"", ""Order ID"": ""US-2023-112326"", ""Product ID"": ""OFF-BI-10004094"", ""Region"": ""Central""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,4,"{""Row ID"": ""3"", ""Order ID"": ""US-2023-112326"", ""Product ID"": ""OFF-LA-10003223"", ""Region"": ""Central""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,5,"{""Row ID"": ""4"", ""Order ID"": ""US-2023-112326"", ""Product ID"": ""OFF-ST-10002743"", ""Region"": ""Central""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,7,"{""Row ID"": ""6"", ""Order ID"": ""US-2023-167199"", ""Product ID"": ""FUR-CH-10004063"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,8,"{""Row ID"": ""7"", ""Order ID"": ""US-2023-167199"", ""Product ID"": ""OFF-AR-10001662"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,10,"{""Row ID"": ""9"", ""Order ID"": ""US-2023-167199"", ""Product ID"": ""OFF-BI-10004632"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,11,"{""Row ID"": ""10"", ""Order ID"": ""US-2023-167199"", ""Product ID"": ""OFF-FA-10001883"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,12,"{""Row ID"": ""11"", ""Order ID"": ""US-2023-167199"", ""Product ID"": ""OFF-PA-10000955"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,14,"{""Row ID"": ""13"", ""Order ID"": ""US-2023-167199"", ""Product ID"": ""TEC-PH-10004539"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_id,15,"{""Row ID"": ""14"", ""Order ID"": ""US-2023-167199"", ""Product ID"": ""TEC-PH-10004977"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,content_excluding_row_id,392,"{""Row ID"": ""391"", ""Order ID"": ""US-2023-150119"", ""Product ID"": ""FUR-CH-10002965"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,content_excluding_row_id,393,"{""Row ID"": ""392"", ""Order ID"": ""US-2023-150119"", ""Product ID"": ""FUR-CH-10002965"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,content_excluding_row_id,1700,"{""Row ID"": ""1699"", ""Order ID"": ""CA-2023-153623"", ""Product ID"": ""FUR-FU-10002501"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,content_excluding_row_id,1701,"{""Row ID"": ""1700"", ""Order ID"": ""CA-2023-153623"", ""Product ID"": ""FUR-FU-10002501"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,392,"{""Row ID"": ""391"", ""Order ID"": ""US-2023-150119"", ""Product ID"": ""FUR-CH-10002965"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,393,"{""Row ID"": ""392"", ""Order ID"": ""US-2023-150119"", ""Product ID"": ""FUR-CH-10002965"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,1700,"{""Row ID"": ""1699"", ""Order ID"": ""CA-2023-153623"", ""Product ID"": ""FUR-FU-10002501"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,1701,"{""Row ID"": ""1700"", ""Order ID"": ""CA-2023-153623"", ""Product ID"": ""FUR-FU-10002501"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,2019,"{""Row ID"": ""2018"", ""Order ID"": ""CA-2023-123625"", ""Product ID"": ""FUR-FU-10004093"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,2021,"{""Row ID"": ""2020"", ""Order ID"": ""CA-2023-123625"", ""Product ID"": ""FUR-FU-10004093"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,2022,"{""Row ID"": ""2021"", ""Order ID"": ""CA-2023-123625"", ""Product ID"": ""OFF-FA-10000089"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,2024,"{""Row ID"": ""2023"", ""Order ID"": ""CA-2023-123625"", ""Product ID"": ""OFF-FA-10000089"", ""Region"": ""East""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,2881,"{""Row ID"": ""2880"", ""Order ID"": ""US-2024-103135"", ""Product ID"": ""OFF-BI-10000069"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.
+Orders,order_product,2882,"{""Row ID"": ""2881"", ""Order ID"": ""US-2024-103135"", ""Product ID"": ""OFF-BI-10000069"", ""Region"": ""South""}",First 10 affected rows per duplicate type; not an exhaustive export.

@@ -1,0 +1,4 @@
+Category,sales,profit,profit_margin,order_count,order_line_count,sales_status,profit_status,profit_margin_status,sales_unavailable_line_count,profit_unavailable_line_count,order_id_missing_line_count
+Furniture,754747.7613,19729.99559999998,0.02614117803544915,1819,2201,complete,complete,available,0,0,0
+Office Supplies,731893.314,126023.44339999997,0.17218826977834636,3812,6128,complete,complete,available,0,0,0
+Technology,839893.279,146543.37559999997,0.17447856681801113,1560,1865,complete,complete,available,0,0,0

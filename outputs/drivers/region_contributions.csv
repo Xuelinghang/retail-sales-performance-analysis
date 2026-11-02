@@ -1,0 +1,5 @@
+Region,baseline_sales,baseline_profit,baseline_sales_status,baseline_profit_status,baseline_order_line_count,comparison_sales,comparison_profit,comparison_sales_status,comparison_profit_status,comparison_order_line_count,is_missing_group,sales_change,sales_change_status,profit_change,profit_change_status
+Central,12152.726200000001,564.9906999999996,complete,complete,69,15154.978,-1518.5954000000006,complete,complete,107,False,3002.251799999998,available,-2083.5861000000004,available
+East,32346.248,7639.743599999999,complete,complete,86,45640.319,9392.2568,complete,complete,130,False,13294.071000000004,available,1752.5132000000003,available
+South,12136.951000000001,-2243.2350000000006,complete,complete,51,28717.421,-1624.8073999999992,complete,complete,84,False,16580.469999999998,available,618.4276000000013,available
+West,26838.858,4709.031899999999,complete,complete,103,28941.787,3443.2496999999994,complete,complete,139,False,2102.929,available,-1265.7821999999996,available

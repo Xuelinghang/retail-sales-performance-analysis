@@ -1,0 +1,10 @@
+sheet,duplicate_type,key_fields,extra_rows,affected_rows,repeated_key_groups,missing_key_rows,interpretation
+Orders,full_row,Row ID | Order ID | Order Date | Ship Date | Ship Mode | Customer ID | Customer Name | Segment | Country/Region | City | State/Province | Postal Code | Region | Product ID | Category | Sub-Category | Product Name | Sales | Quantity | Discount | Profit,0,0,0,0,"Exact duplicate source records, including identifiers."
+Orders,order_id,Order ID,5083,7601,2518,0,Expected at line-item grain; repeated orders are not automatically errors.
+Orders,order_line_id,Row ID,0,0,0,0,Expected unique source line identifier.
+Orders,content_excluding_row_id,Order ID | Order Date | Ship Date | Ship Mode | Customer ID | Customer Name | Segment | Country/Region | City | State/Province | Postal Code | Region | Product ID | Category | Sub-Category | Product Name | Sales | Quantity | Discount | Profit,2,4,2,0,Potential duplicates requiring review; retained in metrics.
+Orders,order_product,Order ID | Product ID,11,22,11,0,A candidate key only; repeated products may be split line items.
+People,full_row,Regional Manager | Region,0,0,0,0,"Exact duplicate source records, including identifiers."
+People,region_key,Region,0,0,0,0,Expected unique on the right side of a many-to-one join.
+Returns,full_row,Order ID | Returned,0,0,0,0,"Exact duplicate source records, including identifiers."
+Returns,order_id,Order ID,0,0,0,0,Expected unique at the declared order-level grain.

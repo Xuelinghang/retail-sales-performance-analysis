@@ -1,0 +1,41 @@
+{
+  "project": "Retail Performance & Planning Lab",
+  "phase": 1,
+  "run_time_utc": "2026-11-02T04:16:18.492937+00:00",
+  "source_path": "data/raw/sample_-_superstore.xlsx",
+  "source_size_bytes": 3422208,
+  "source_sha256_before": "5045ed4fec49cae2cc0dfc5ab0d204ba09efa767fe00c996822499e8cc42fbbd",
+  "source_sha256_after": "5045ed4fec49cae2cc0dfc5ab0d204ba09efa767fe00c996822499e8cc42fbbd",
+  "raw_source_unchanged": true,
+  "excel_engine": "xlrd",
+  "as_of_date": "2026-11-01",
+  "date_filter_applied": false,
+  "python_executable": "C:\\Users\\Larry\\retail-sales-performance-analysis\\.venv\\Scripts\\python.exe",
+  "python_version": "3.14.6",
+  "dependencies": {
+    "pandas": "3.0.5",
+    "openpyxl": "3.1.5",
+    "xlrd": "2.0.2"
+  },
+  "metric_source": "Orders only; no enrichment joins",
+  "row_deletion_applied": false,
+  "absolute_tolerance": 1e-06,
+  "relative_tolerance": 1e-12,
+  "reconciliation_failed": false,
+  "artifacts": [
+    "sheet_summary.csv",
+    "field_profile.csv",
+    "duplicate_summary.csv",
+    "duplicate_examples.csv",
+    "quality_checks.csv",
+    "monthly_summary.csv",
+    "regional_summary.csv",
+    "category_summary.csv",
+    "reconciliation.csv",
+    "relationships.csv",
+    "metrics.csv",
+    "metrics.json",
+    "run_manifest.json",
+    "data_quality_summary.md"
+  ]
+}

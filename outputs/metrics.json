@@ -1,0 +1,13 @@
+{
+  "sales": 2326534.3543000002,
+  "profit": 292296.8145999999,
+  "profit_margin": 0.12563614805849072,
+  "order_count": 5111,
+  "order_line_count": 10194,
+  "sales_status": "complete",
+  "profit_status": "complete",
+  "profit_margin_status": "available",
+  "sales_unavailable_line_count": 0,
+  "profit_unavailable_line_count": 0,
+  "order_id_missing_line_count": 0
+}
