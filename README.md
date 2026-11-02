@@ -1,5 +1,7 @@
 # Retail Performance & Planning Lab
 
+[Open Live Demo](https://retail-sales-performance-analysis-w7etlbcp6rojbyqueaumuc.streamlit.app/)
+
 A retail analytics portfolio project for Analyst job applications. Phase 1 establishes a reproducible data-quality and measurement foundation using the Superstore sample workbook. Phase 2 adds a Streamlit and Plotly dashboard. Phase 3 adds monthly Performance Drivers comparisons. Phase 4 adds simplified Scenario Planning sensitivity analysis using the current filtered Sales and Profit. The audience is a Finance Manager. The repository is prepared for Streamlit Community Cloud; no hosted deployment has been performed or verified.
 
 ## Environment and Setup
