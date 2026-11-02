@@ -1,4 +1,4 @@
-"""Run Phase 1 from any working directory using the project virtual environment."""
+"""Run Phase 1 from any working directory in an environment with project dependencies."""
 
 import argparse
 from datetime import datetime, timezone
@@ -22,8 +22,6 @@ def main():
         reference_date = datetime.strptime(args.as_of_date, "%Y-%m-%d").date().isoformat()
     except ValueError:
         parser.error("--as-of-date must be a valid YYYY-MM-DD calendar date.")
-    if Path(sys.prefix).resolve() != (PROJECT_ROOT / ".venv").resolve():
-        parser.error("Run with the project's .venv Python interpreter.")
     source_path = PROJECT_ROOT / "data/raw/sample_-_superstore.xlsx"
     output_dir = args.output_dir.resolve()
     if output_dir.is_relative_to(source_path.parent.resolve()):
@@ -43,7 +41,7 @@ def main():
         "source_sha256_before": source_hash_before, "source_sha256_after": source_hash_after,
         "raw_source_unchanged": True, "excel_engine": detect_excel_engine(source_path),
         "as_of_date": reference_date, "date_filter_applied": False,
-        "python_executable": sys.executable, "python_version": sys.version.split()[0],
+        "python_executable": Path(sys.executable).name, "python_version": sys.version.split()[0],
         "dependencies": {package: version(package) for package in ["pandas", "openpyxl", "xlrd"]},
         "metric_source": "Orders only; no enrichment joins", "row_deletion_applied": False,
         "absolute_tolerance": 1e-6, "relative_tolerance": 1e-12,

@@ -1,10 +1,12 @@
 # Retail Performance & Planning Lab
 
-A retail analytics portfolio project for Analyst job applications. Phase 1 establishes a reproducible data-quality and measurement foundation using the local Superstore sample workbook. Phase 2 adds a local Streamlit and Plotly dashboard. Phase 3 adds monthly Performance Drivers comparisons. Phase 4 adds simplified Scenario Planning sensitivity analysis using the current filtered Sales and Profit. The audience is a Finance Manager. All execution remains local; online deployment is outside the current scope.
+A retail analytics portfolio project for Analyst job applications. Phase 1 establishes a reproducible data-quality and measurement foundation using the Superstore sample workbook. Phase 2 adds a Streamlit and Plotly dashboard. Phase 3 adds monthly Performance Drivers comparisons. Phase 4 adds simplified Scenario Planning sensitivity analysis using the current filtered Sales and Profit. The audience is a Finance Manager. The repository is prepared for Streamlit Community Cloud; no hosted deployment has been performed or verified.
 
 ## Environment and Setup
 
-Validated on Windows with Python 3.14.6 in the project `.venv`. The analysis uses `pandas`, `xlrd`, and `openpyxl`. The dashboard uses Streamlit 1.66.1 and Plotly 7.1.0. Dashboard and Jupyter dependencies are pinned in `requirements.txt`.
+Recommended Python version: **3.14**, matching the clean Windows validation environment (3.14.6). Select Python 3.14 explicitly in Community Cloud Advanced settings. Linux and the hosted platform remain unverified; a successful local check is not a hosted deployment result.
+
+`requirements.txt` contains only five direct runtime dependencies: Streamlit 1.66.1, pandas 3.0.5, Plotly 7.1.0, xlrd 2.0.2, and openpyxl 3.1.5. These are the application's previously validated versions. Transitive dependencies are resolved by the installer rather than copied from a Windows `pip freeze`. No Windows-only packages are explicitly required. Both Excel engines are included because the loader supports the supplied legacy binary workbook and genuine XLSX files.
 
 From the repository root in PowerShell:
 
@@ -15,7 +17,15 @@ py -3.14 -m venv .venv
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-Use the explicit interpreter path to avoid accidentally running global Python. Select the project `.venv` kernel in the notebook. The dependency file records the tested environment. Streamlit's PyArrow dependency can affect pandas string inference; the shared date parser explicitly maintains boolean masks for empty selections.
+Use the explicit interpreter path to avoid accidentally running global Python. A local virtual environment is recommended, but neither the app nor the analysis scripts require a particular environment name or interpreter location. If the Windows `py` launcher is unavailable, use the installed Python 3.14 executable to create the environment instead.
+
+Optional notebook development dependencies are managed separately:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+```
+
+Select the project `.venv` kernel in the notebook. Community Cloud installs the root `requirements.txt`, not this optional development file. Tests use standard-library `unittest` and Streamlit's included AppTest; notebook dependencies are not needed for tests. Streamlit's PyArrow dependency can affect pandas string inference; the shared date parser explicitly maintains boolean masks for empty selections.
 
 ## Run the Analysis
 
@@ -29,7 +39,7 @@ The default inspection reference date is `2026-11-01`, matching the original ove
 .\.venv\Scripts\python.exe scripts\run_analysis.py --as-of-date 2026-11-01
 ```
 
-Default paths are resolved relative to the repository, so an absolute script path also works from another working directory. `--output-dir <path>` selects a separate output directory. Writing into `data/raw/` is blocked. Repeated runs overwrite the named generated artifacts, preserve all source records, and produce identical analytical tables for the same input and reference date. Only run metadata, such as execution time and interpreter path, may change.
+Default paths are resolved relative to the repository, so an absolute script path also works from another working directory. `--output-dir <path>` selects a separate output directory. Writing into `data/raw/` is blocked. Repeated runs overwrite the named generated artifacts, preserve all source records, and produce identical analytical tables for the same input and reference date. Only run metadata, such as execution time and interpreter filename, may change.
 
 Run the behavioral checks:
 
@@ -57,7 +67,10 @@ sql/                              Reserved for a later phase
 dashboard/app.py                  Local Streamlit dashboard entry point
 dashboard/drivers_view.py          Performance Drivers tab presentation
 dashboard/scenario_view.py         Scenario Planning tab presentation
-.streamlit/config.toml             Local-only server and dashboard theme
+.streamlit/config.toml             Theme and usage-statistics preference
+requirements.txt                   Direct runtime dependencies for local/cloud use
+requirements-dev.txt               Optional notebook tools
+tests/test_deployment.py            Real entry points from another working directory
 images/                           Reserved for later analysis figures
 ```
 
@@ -166,7 +179,7 @@ From the repository root, generate or refresh Phase 1 outputs, then start the ap
 .\.venv\Scripts\python.exe -m streamlit run dashboard\app.py --server.address 127.0.0.1 --server.port 8501
 ```
 
-Open [http://127.0.0.1:8501](http://127.0.0.1:8501). Stop the foreground server with `Ctrl+C`. The project configuration binds the app to loopback, selects a light theme, and disables usage statistics. No online deployment is required.
+Open [http://127.0.0.1:8501](http://127.0.0.1:8501). Stop the foreground server with `Ctrl+C`. The command above binds local runs to loopback. The shared configuration selects a light theme and disables usage statistics; it does not fix the server address or port, so a hosting platform can manage them.
 
 ### Dashboard Views
 
@@ -369,3 +382,59 @@ All **62 tests pass**, including 17 Scenario Planning checks. Explicit calculati
 The last case has null Profit Margin. Other checks cover combined assumptions, baseline losses, invalid baselines, incomplete measures, source-data default identity, assumption reset messages, filter changes, empty-selection recovery, and consistency between displayed values, Plotly traces, and the actual download payloads. Earlier Performance, Drivers, and reset/readability regressions remain in the full suite.
 
 Automated state and chart-data validation does not establish pixel-level browser acceptance. The repaired layout and the new scenario controls/chart still require visual review at the intended browser width when browser access is available.
+
+## Streamlit Community Cloud Deployment
+
+Deployment entry point: **`dashboard/app.py`**. The application reads the bundled workbook and reviewed Phase 1 baseline on startup. It does not regenerate audit outputs on the hosted server. All runtime paths are derived from `Path(__file__).resolve()` and the repository root; no user-specific Windows path or `.venv` location is required. Historical notebook execution outputs are not runtime configuration.
+
+The source workbook, `retail_lab/`, `dashboard/`, and existing `outputs/` files are already tracked by Git. Required startup baseline files are `outputs/metrics.json`, `outputs/run_manifest.json`, and `outputs/reconciliation.csv`. Preserve the other audit exports for inspection. The legacy binary workbook is about 3.4 MB and is stored directly in Git. Local environments and `.streamlit/secrets.toml` are ignored. This app requires no credentials or external data connections.
+
+Before deploying, run and review the analysis and tests locally using the commands above. The source hash must match the manifest and the default metrics must reconcile with the committed baseline. Data-quality checks, definitions, coverage warnings, noncausal Drivers summaries, and Scenario Planning assumptions and limitations remain active in hosted runs. `Sales - Profit` remains an **Implied Cost Proxy**, not verified COGS or actual costs. Scenario results remain sensitivity analysis, not forecasts.
+
+Commit only the deployment changes from the repository root in PowerShell. The commands below assume the current `main` branch and existing `origin` remote (`https://github.com/Xuelinghang/retail-sales-performance-analysis.git`):
+
+```powershell
+git status --short
+git add -- .gitignore .streamlit/config.toml README.md requirements.txt requirements-dev.txt dashboard/app.py scripts/run_analysis.py scripts/run_drivers.py tests/test_deployment.py outputs/run_manifest.json
+git diff --cached --check
+git diff --cached --stat
+git commit -m "Prepare dashboard for Streamlit Community Cloud"
+git push origin main
+```
+
+These commands intentionally leave the pre-existing deletion of `data/.gitkeep` out of this commit. The raw workbook and other previously committed source/baseline files do not need to be added again. No commit or push is performed by the preparation process itself.
+
+After pushing:
+
+1. Sign in to [Streamlit Community Cloud](https://share.streamlit.io/) with access to the repository and choose **Create app**.
+2. Select repository `Xuelinghang/retail-sales-performance-analysis`, branch `main`, and main file path `dashboard/app.py` (case-sensitive).
+3. In **Advanced settings**, explicitly select **Python 3.14**. Do not depend on the platform default. No secrets are required.
+4. Deploy and inspect the build/startup logs. The root `requirements.txt` supplies runtime dependencies. The platform manages the server address and port; do not copy the local `--server.address 127.0.0.1` command into hosting configuration.
+5. Verify full-data Sales `2,326,534.35`, Profit `292,296.81`, margin `12.56%`, and Order Count `5,111`. Check combined filters and Reset filters, both Drivers periods and exports, and the zero-assumption Scenario baseline, reset behavior, and result downloads. Review chart labels at the intended browser width.
+
+See the official [deployment guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy) and [dependency guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies). The platform uses Linux; successful Windows validation does not establish Linux or hosted runtime compatibility. If Python 3.14 is unavailable in your account's selector, validate a supported alternative in a matching clean environment before switching versions.
+
+### Clean Environment Validation
+
+Create a separate environment without inheriting the existing project packages:
+
+```powershell
+py -3.14 -m venv .venv-cloud
+.\.venv-cloud\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv-cloud\Scripts\python.exe -m pip check
+.\.venv-cloud\Scripts\python.exe scripts\run_analysis.py
+.\.venv-cloud\Scripts\python.exe scripts\run_drivers.py
+.\.venv-cloud\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv-cloud\Scripts\python.exe -m streamlit run dashboard\app.py --server.address 127.0.0.1 --server.port 8502 --server.headless true
+```
+
+Use [http://127.0.0.1:8502](http://127.0.0.1:8502) for this separate validation server. `.venv-cloud` is ignored by Git. The deployment tests execute the actual app entry point and the analysis script from another working directory, compare recalculated metrics with the committed baseline, and confirm the raw source remains unchanged. Optional notebook tools are outside the runtime-only validation scope.
+
+Observed preparation results on November 2, 2026:
+
+- A new Windows Python 3.14.6 environment with `include-system-site-packages = false` successfully installed only `requirements.txt`; `pip check` reported no broken requirements. The original `.venv` was retained.
+- Phase 1 ran successfully with 12 `PASS` and 3 informational reconciliation rows; Drivers ran successfully with 12 `PASS`. Financial outputs matched the existing baseline. The raw workbook SHA-256 remained `5045ed4fec49cae2cc0dfc5ab0d204ba09efa767fe00c996822499e8cc42fbbd`.
+- All **64 tests passed** in 31.132 seconds: the existing 62 checks plus two deployment entry-point checks. The log is local and ignored at `.venv-cloud/test-results.log`.
+- The clean-environment server started on port 8502; `/` and `/_stcore/health` returned HTTP 200. AppTest executed the real app, verified the baseline Sales card, and confirmed the Scenario Planning tab was present without application exceptions.
+- Existing source files, workbook, and baseline exports are Git-tracked. The new development dependency file and deployment test need the explicit `git add` command above. Generated audit metadata now records the interpreter filename rather than a personal absolute path.
+- Not verified: Linux dependency installation/execution, a Community Cloud build or hosted session, a fresh installation of optional notebook dependencies, and manual browser appearance/downloads on the hosted platform. No cloud URL exists from this preparation, and no commit, push, or deployment was performed.

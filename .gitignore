@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Isolated deployment validation environment (not an application dependency).
+.venv-cloud/

@@ -20,8 +20,6 @@ def main():
     parser.add_argument("--regions", nargs="*", default=None)
     parser.add_argument("--categories", nargs="*", default=None)
     args = parser.parse_args()
-    if Path(sys.prefix).resolve() != (PROJECT_ROOT / ".venv").resolve():
-        parser.error("Run with the project's .venv Python interpreter.")
     orders, quality, source_hash = load_verified_source(PROJECT_ROOT)
     plan = month_plan(orders, args.start_date, args.end_date)
     if plan["defaults"] is None:

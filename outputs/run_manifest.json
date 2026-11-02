@@ -1,7 +1,7 @@
 {
   "project": "Retail Performance & Planning Lab",
   "phase": 1,
-  "run_time_utc": "2026-11-02T04:16:18.492937+00:00",
+  "run_time_utc": "2026-11-02T23:37:40.033255+00:00",
   "source_path": "data/raw/sample_-_superstore.xlsx",
   "source_size_bytes": 3422208,
   "source_sha256_before": "5045ed4fec49cae2cc0dfc5ab0d204ba09efa767fe00c996822499e8cc42fbbd",
@@ -10,7 +10,7 @@
   "excel_engine": "xlrd",
   "as_of_date": "2026-11-01",
   "date_filter_applied": false,
-  "python_executable": "C:\\Users\\Larry\\retail-sales-performance-analysis\\.venv\\Scripts\\python.exe",
+  "python_executable": "python.exe",
   "python_version": "3.14.6",
   "dependencies": {
     "pandas": "3.0.5",

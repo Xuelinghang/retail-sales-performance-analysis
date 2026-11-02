@@ -1,4 +1,4 @@
-"""Local Streamlit dashboard. Run with the project's .venv interpreter."""
+"""Streamlit dashboard for local use and managed hosting."""
 
 from pathlib import Path
 import sys
@@ -198,16 +198,13 @@ Selecting a category measures its order lines, not the full baskets of matching 
 
 def main():
     st.set_page_config(page_title="Retail Performance & Planning Lab", page_icon="📊", layout="wide")
-    if Path(sys.prefix).resolve() != (PROJECT_ROOT / ".venv").resolve():
-        st.error("Start this app with the project's .venv Python interpreter.")
-        st.stop()
     try:
         source = PROJECT_ROOT / "data/raw/sample_-_superstore.xlsx"
         baseline_files = [PROJECT_ROOT / "outputs" / name for name in ["metrics.json", "run_manifest.json", "reconciliation.csv"]]
         orders, quality, source_hash = cached_source(file_hash(source), tuple(file_hash(path) for path in baseline_files))
     except (OSError, ValueError, KeyError) as error:
         st.error(f"Source validation could not complete: {error}")
-        st.info("Run .venv\\Scripts\\python.exe scripts\\run_analysis.py, review its outputs, then reload this page.")
+        st.info("Run python scripts/run_analysis.py from the repository root, review the outputs, and commit the validated baseline before deploying or reloading.")
         st.stop()
     render_dashboard(orders, quality)
 
