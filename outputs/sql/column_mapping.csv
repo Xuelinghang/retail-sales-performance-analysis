@@ -1,0 +1,27 @@
+sheet,source_field,sql_column,source_field_present,normalization
+Orders,Row ID,row_id,True,Shared finite_numbers; invalid/nonfinite values become NULL
+Orders,Order ID,order_id,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Order Date,order_date,True,Shared parse_dates; missing/invalid/untyped numeric dates become NULL
+Orders,Ship Date,ship_date,True,Shared parse_dates; missing/invalid/untyped numeric dates become NULL
+Orders,Ship Mode,ship_mode,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Customer ID,customer_id,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Customer Name,customer_name,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Segment,segment,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Country/Region,country_region,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,City,city,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,State/Province,state_province,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Postal Code,postal_code,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Region,region,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Product ID,product_id,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Category,category,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Sub-Category,sub_category,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Product Name,product_name,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Orders,Sales,sales,True,Shared finite_numbers; invalid/nonfinite values become NULL
+Orders,Quantity,quantity,True,Shared finite_numbers; invalid/nonfinite values become NULL
+Orders,Discount,discount,True,Shared finite_numbers; invalid/nonfinite values become NULL
+Orders,Profit,profit,True,Shared finite_numbers; invalid/nonfinite values become NULL
+Orders,,_source_row_number,False,One-based physical data-row ordinal; Excel row = ordinal + 1
+People,Regional Manager,regional_manager,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+People,Region,region,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Returns,Order ID,order_id,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged
+Returns,Returned,returned,True,Shared missing_mask; blank/whitespace-only values become NULL; other text is unchanged

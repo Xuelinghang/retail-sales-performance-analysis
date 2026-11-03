@@ -1,0 +1,35 @@
+{
+  "run_time_utc": "2026-11-03T00:17:09.696696+00:00",
+  "source_path": "data/raw/sample_-_superstore.xlsx",
+  "source_sha256_before": "5045ed4fec49cae2cc0dfc5ab0d204ba09efa767fe00c996822499e8cc42fbbd",
+  "queries": {
+    "00_selected_orders.sql": "c94710a4282a3981c3410565185360ffdfaa4bcf1821cbcc0fcb70d3c4c6b6a7",
+    "01_kpi_summary.sql": "69eaa7f097e7dcf7da3347a8d4ff60ac56f8ac30e21a9d3016abbdd400056c88",
+    "02_monthly_trends.sql": "0999c3d252847fc55a840454034a35f821ed47b9ca49fd97c2b44334747ffeea",
+    "03_product_profitability.sql": "b5964baeec59318d4b275156db58154dfaadee576fdcff794100deeac9833b67",
+    "04_order_enrichment.sql": "cbb4d1406c06235bd7e72f10184eb1a05f118514878691730485f28d023e146a"
+  },
+  "status": "PASS",
+  "filters": {
+    "start": null,
+    "end": null,
+    "regions": null,
+    "categories": null,
+    "include_undated": true
+  },
+  "duckdb_version": "2.0.0",
+  "metric_source": "Normalized Excel order lines; no Python aggregate is registered",
+  "shared_preprocessing": "Workbook loader, row-level type validation and missing-value rules only",
+  "amount_unit": "Source units; currency and profit cost basis unconfirmed",
+  "monthly_rule": "Calendar completed before LAG; no-record sums remain NULL; undated bucket retained",
+  "rate_rule": "Rates require complete inputs and a positive prior value; negative and zero bases retain absolute changes only",
+  "returns_rule": "Order-level flag only; unmatched does not prove no return; no refunds/net sales inferred",
+  "absolute_tolerance": 1e-06,
+  "relative_tolerance": 1e-12,
+  "ratio_absolute_tolerance": 1e-12,
+  "reconciliation_counts": {
+    "PASS": 1448
+  },
+  "source_sha256_after": "5045ed4fec49cae2cc0dfc5ab0d204ba09efa767fe00c996822499e8cc42fbbd",
+  "raw_source_unchanged": true
+}

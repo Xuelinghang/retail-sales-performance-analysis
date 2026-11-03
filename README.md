@@ -57,21 +57,24 @@ retail_lab/analysis.py             Shared loading, profiling, metrics, and valid
 retail_lab/dashboard.py            One filtered model, Plotly figures, and CSV payloads
 retail_lab/drivers.py              Period comparisons, contributions, and summaries
 retail_lab/scenario.py             Sensitivity calculations, definitions, and exports
+retail_lab/sql_analysis.py         DuckDB detail registration and pandas reconciliation
 scripts/run_analysis.py            Command-line entry point
 scripts/run_drivers.py             Reproducible comparison export without a UI
+scripts/run_sql_analysis.py        Optional SQL analysis CLI
 notebooks/01_data_overview.ipynb    Executed overview using shared analysis code
 tests/test_analysis.py             Financial definitions and edge-case checks
 tests/test_dashboard.py            Filter, export, chart, and Streamlit widget checks
 tests/test_drivers.py              Period-change and contribution validation
 tests/test_scenario.py             Explicit scenario examples and UI consistency
 outputs/                          Generated summaries, metrics, and audit metadata
-sql/                              Reserved for a later phase
+sql/                              Executable selection, KPI, window, and safe-join queries
 dashboard/app.py                  Local Streamlit dashboard entry point
 dashboard/drivers_view.py          Performance Drivers tab presentation
 dashboard/scenario_view.py         Scenario Planning tab presentation
 .streamlit/config.toml             Theme and usage-statistics preference
 requirements.txt                   Direct runtime dependencies for local/cloud use
 requirements-dev.txt               Optional notebook tools
+requirements-sql.txt               Optional DuckDB analysis dependency
 tests/test_deployment.py            Real entry points from another working directory
 images/                           Reserved for later analysis figures
 ```
@@ -440,3 +443,74 @@ Observed preparation results on November 2, 2026:
 - The clean-environment server started on port 8502; `/` and `/_stcore/health` returned HTTP 200. AppTest executed the real app, verified the baseline Sales card, and confirmed the Scenario Planning tab was present without application exceptions.
 - Existing source files, workbook, and baseline exports are Git-tracked. The new development dependency file and deployment test need the explicit `git add` command above. Generated audit metadata now records the interpreter filename rather than a personal absolute path.
 - Not verified: Linux dependency installation/execution, a Community Cloud build or hosted session, a fresh installation of optional notebook dependencies, and manual browser appearance/downloads on the hosted platform. No cloud URL exists from this preparation, and no commit, push, or deployment was performed.
+
+## SQL Analysis with DuckDB
+
+This optional command-line module demonstrates SQL calculations from **order-line detail**, calendar-aware window functions, and guarded many-to-one enrichment. DuckDB **2.0.0** was installed and tested on Windows Python 3.14.6. It is pinned only in `requirements-sql.txt`; the Dashboard runtime file and app entry point do not import DuckDB. Installing SQL dependencies is not required to run the existing hosted Dashboard. This change does not deploy or alter the hosted app.
+
+### Inputs, Field Mapping, and Independence
+
+The runner calls the existing signature-aware Excel loader and registers three normalized detail frames as `orders_input`, `people_input`, and `returns_input`. Their grains remain order line, regional manager mapping, and order-level return flag. The original workbook is never converted, renamed, or overwritten.
+
+`outputs/sql/column_mapping.csv` records every original field, its snake_case SQL name, presence, and row-level normalization rule. Examples: `Order ID -> order_id`, `Sub-Category -> sub_category`, and `Regional Manager -> regional_manager`. Shared `finite_numbers`, `parse_dates`, and `missing_mask` functions convert unusable numbers, invalid dates, and blank/whitespace-only identifiers or classifications to SQL NULL. Other nonblank text is preserved, including case and surrounding whitespace. `_source_row_number` is a derived physical data-row ordinal, independent of the source `Row ID`, so even duplicate source identifiers can be traced through joins. Missing optional columns are represented explicitly as NULL, and `source_schema` records whether Profit exists.
+
+No Python totals, monthly tables, or category summaries are registered or used as SQL inputs. DuckDB computes aggregates and windows from selected normalized detail. The pandas verification path independently selects source rows and calls the established metric functions, builds a pandas calendar and prior-month comparisons, computes dense ranks, and performs validated pandas merges. Thus aggregation, filtering, ranking, and joining are checked across two engines; workbook reading and row-level type/missingness policy are intentionally shared rather than independently reinterpreted.
+
+### Queries and Business Questions
+
+| SQL file | Business question | Input and output grain | SQL techniques and handling |
+| --- | --- | --- | --- |
+| `00_selected_orders.sql` | Which order lines belong to the requested scope? | Registered order lines -> selected order lines | Reads a parameter table populated with bound values; one scope feeds all four analyses. |
+| `01_kpi_summary.sql` | What Sales, Profit, margin, and order activity are recorded? | Selected order lines -> one KPI row | `SUM`, `COUNT(*)`, `COUNT(DISTINCT order_id)`, and availability statuses. Margin is total Profit / total Sales, never an average of line margins. |
+| `02_monthly_trends.sql` | How did recorded Sales and Profit change from the immediately preceding calendar month? | Selected order lines -> one row per calendar month plus one undated bucket | CTEs aggregate detail, generate a complete monthly calendar, then apply `LAG`. Includes prior values, absolute changes, rates, and status columns. |
+| `03_product_profitability.sql` | Which subcategories contribute profit or losses? | Selected order lines -> one row per subcategory, including NULL | `GROUP BY` retains missing classifications with `is_missing_group`. `DENSE_RANK` orders complete Profit totals; ties share a rank without gaps. Incomplete or unavailable Profit is not ranked or asserted to be a verified loss. |
+| `04_order_enrichment.sql` | Can manager and order-level return information be added safely? | Selected order lines -> exactly the same order lines with lookup attributes | SQL checks full lookup tables for nonmissing unique keys before either `LEFT JOIN`. An unsafe key raises an error before the join; no automatic deduplication is performed. |
+
+**Missing values and ratios:** SQL NULL amounts remain unknown. `SUM` returns the known amount with a `partial` status if some selected inputs are unusable, or NULL if none are usable. Missing Profit is `field_missing`. Profit Margin is NULL when inputs are incomplete, Profit is absent, or Sales is zero; zero division is also guarded with `NULLIF`. Null or whitespace-only order IDs do not contribute to distinct order counts, but their lines and usable amounts remain in totals. Category-level order counts are not additive; actual distinct order sets are reconciled instead.
+
+**Monthly calendar and changes:** The calendar spans the requested date window when both endpoints are supplied, otherwise the selected usable date bounds. Missing calendar months have `record_status=no_records`, zero recorded line/order counts, and **NULL Sales and Profit**, not claimed zero business activity. Because `LAG` runs after calendar completion, March cannot accidentally use January as its previous month when February has no records. The separate `record_type=undated` row contains selected missing/invalid dates and amounts; it is excluded from calendar windows but included in coverage reconciliation, even when its row count is zero. Without usable dates or explicit bounds, only that bucket is returned.
+
+Change rates require complete current/prior measures and a **positive** prior value. A zero prior value yields `previous_zero`; a negative prior value yields `previous_negative`. Absolute changes remain available for complete observed inputs in both cases, while percentage changes remain NULL. Missing records or incomplete amounts have explicit statuses and do not generate invented changes. Rates are exported as fractions. Date-window edges and source coverage may truncate calendar months; monthly results use only selected records and do not establish ingestion completeness or extrapolate full months.
+
+**Safe enrichment:** `People.Region` and `Returns.Order ID` are checked across their entire source sheets, independently of selected filters. Null and whitespace-only right-side keys are rejected as well as duplicates. SQL records before/after join line counts, Sales, and Profit, and pandas independently verifies every line identity, enrichment attribute, and order set. Unmatched manager or return attributes stay NULL. A return-list match applies an order-level flag to each matching order line; it does not identify returned product quantities, refund amounts, or net sales. An unmatched order does not prove that no return occurred.
+
+### Install and Run
+
+From the repository root in PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-sql.txt
+.\.venv\Scripts\python.exe -m pip check
+.\.venv\Scripts\python.exe scripts\run_sql_analysis.py
+
+# The same filters are bound once and used by every query and pandas check.
+.\.venv\Scripts\python.exe scripts\run_sql_analysis.py --start-date 2026-10-01 --end-date 2026-11-30 --regions West --categories Furniture --exclude-undated --output-dir .venv/sql-filtered
+
+# SQL-only checks; then the full suite including the Dashboard regressions.
+.\.venv\Scripts\python.exe -m unittest discover -s tests -p test_sql_analysis.py -v
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+Both date endpoints must be supplied together, using `YYYY-MM-DD`; the end date is inclusive. With no dates there is no date restriction. Missing/invalid dates are included by default, consistent with the Dashboard; `--exclude-undated` removes them explicitly. `--regions` and `--categories` accept multiple exact source values; omitting a flag means unrestricted, while specifying it with no values produces an empty selection. `(Unassigned)` selects a missing region/category. Date and filter values are passed through DuckDB parameter binding, never concatenated into SQL text; even a quote-containing filter is treated as data.
+
+The runner resolves the source and `.sql` files relative to its own project location, so launching it by absolute path from another working directory is supported and tested. `--output-dir` is optional, defaults to project `outputs/sql/`, and a relative override is resolved from the current working directory. Writing SQL output inside `data/` is blocked. Unsafe joins, query errors, source changes, or reconciliation failures return a nonzero exit code. Failure is recorded in `run_manifest.json`; if a failed run uses an existing destination, older files there are explicitly marked as not current rather than presented as successful results.
+
+### Outputs and Reconciliation
+
+| File under `outputs/sql/` | Purpose |
+| --- | --- |
+| `kpi_summary.csv` | SQL totals, counts, margin, and availability statuses |
+| `monthly_trends.csv` | Complete calendar, separate undated totals, prior-month values and change statuses |
+| `product_profitability.csv` | Subcategory totals, missing-group flag, dense Profit rank, and loss flag |
+| `order_enrichment.csv` | Normalized selected detail with regional manager and return-list attributes |
+| `join_key_checks.csv`, `join_preservation.csv` | Lookup key diagnostics and SQL totals before/after LEFT JOIN |
+| `selected_order_ids.csv`, `group_order_ids.csv` | Actual distinct order sets, including per-month and per-subcategory membership |
+| `column_mapping.csv` | Original-to-SQL field mapping and row-level normalization |
+| `reconciliation.csv` | SQL/pandas values and statuses, exact group keys and order-set/line-identity agreement |
+| `run_manifest.json` | Success/failure, filters, query hashes, DuckDB version, source hashes, tolerances, and limitations |
+
+Values are not rounded before calculation or comparison. Amounts use absolute tolerance `1e-6` and relative tolerance `1e-12`; ratios use absolute and relative tolerance `1e-12`. Small differences can arise because SQL floating-point `SUM` and Python `math.fsum` use different accumulation algorithms. Missing outputs must match as missing, not as zero. Monetary reconciliation can pass for partial sums without proving that unknown source amounts are complete or that flagged records are correct.
+
+Observed Windows validation on November 2, 2026: all four queries executed successfully; full-data SQL outputs passed **1,448 checks** against pandas, including grouped values, statuses, order sets and join preservation. Full-data results are Sales **2,326,534.35**, Profit **292,296.81**, Profit Margin **12.56%**, **5,111** distinct orders and **10,194** lines (display rounding only). People has 4 valid unique keys and Returns has 296; both joins preserve all line identities and totals. The filtered example above passed **162 checks**, with Sales **20,080.141**, Profit **361.4796**, 49 orders and 60 lines. The raw Excel hash remains unchanged.
+
+All **79 tests passed** in 39.361 seconds with DuckDB installed, including the existing 64 analysis/Dashboard/deployment checks. The 15 SQL tests cover duplicate and blank lookup keys, zero division, invalid/all-missing dates, calendar gaps, missing/nonfinite amounts, absent Profit, missing categories, dense-rank ties, zero/negative prior bases, empty/filter selections, a quote-containing filter, deliberately corrupted SQL, nonzero CLI failure codes, and execution from another working directory. Without DuckDB installed, only these optional tests are skipped; the existing Dashboard tests remain runnable with `requirements.txt` alone. Linux DuckDB execution and hosted SQL execution have not been verified; this module is a local CLI extension.

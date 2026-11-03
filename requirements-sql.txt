@@ -1,0 +1,3 @@
+# Optional CLI SQL analysis; excluded from Dashboard runtime dependencies.
+-r requirements.txt
+duckdb==2.0.0

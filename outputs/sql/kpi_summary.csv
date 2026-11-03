@@ -1,0 +1,2 @@
+sales,profit,order_count,order_line_count,sales_unavailable_line_count,profit_unavailable_line_count,order_id_missing_line_count,sales_status,profit_status,profit_margin_status,profit_margin
+2326534.3542999476,292296.8145999992,5111,10194,0,0,0,complete,complete,available,0.12563614805849327
